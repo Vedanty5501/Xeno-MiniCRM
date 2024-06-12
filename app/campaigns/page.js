@@ -51,56 +51,15 @@
 
 
 
-import React, { useState, useEffect } from 'react';
-import { Suspense, useSearchParams } from 'next/navigation';
-// import { useSearchParams } from 'react-router-dom';
+import React, { useState, useEffect, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
 import Head from 'next/head';
 import { useRouter } from 'next/navigation';
-
-const LimitedEditionDrop = () => (
-  <div className="limited-edition-drop">
-    <h1>Welcome to the Sneaker Drop!</h1>
-    <p>Don't miss out on our exclusive release. Coming soon!</p>
-
-    <style jsx>{`
-      .limited-edition-drop {
-        text-align: center;
-        padding: 20px;
-        width: 50%;
-        background-color: #f5f5f5;
-      }
-
-      .limited-edition-drop h1 {
-        font-family: 'Pacifico', cursive;
-        font-size: 2em;
-        margin-bottom: 10px;
-      }
-
-      .limited-edition-drop p {
-        font-family: 'Arial', sans-serif;
-        font-size: 1.2em;
-        margin-bottom: 20px;
-      }
-
-      .notify-me {
-        padding: 10px 20px;
-        background-color: #ff6347;
-        color: #fff;
-        border: none;
-        cursor: pointer;
-        font-size: 1em;
-      }
-
-      .notify-me:hover {
-        background-color: #ff4500;
-      }
-    `}</style>
-  </div>
-);
+import dynamic from 'next/dynamic';
 
 const BackToSchoolSale = () => {
   const [timeLeft, setTimeLeft] = useState(null);
-  const [searchParams] = useSearchParams();
+  const searchParams = useSearchParams();
   const [parsedData, setParsedData] = useState([]);
   
   const router = useRouter();
@@ -113,9 +72,7 @@ const BackToSchoolSale = () => {
     if (data) {
       setParsedData(JSON.parse(decodeURIComponent(data)));
     }
-  }, <Suspense fallback={<div>Loading...</div>}>
-  {searchParams}
-</Suspense>);
+  }, [searchParams]);
 
 
 
@@ -240,55 +197,8 @@ const BackToSchoolSale = () => {
   );
 };
 
-const SummerCollectionLaunch = () => {
-  
-  return (
-    <div className="summer-collection-launch">
-      <h1>Summer Collection Launch</h1>
-      <p>Explore our new summer collection with lightweight, breathable sneakers!</p>
-      
-
-      <style jsx>{`
-        .summer-collection-launch {
-          text-align: center;
-          padding: 20px;
-          width:50%;
-          background-color: #fff3e0;
-        }
-
-        .summer-collection-launch h1 {
-          font-family: 'Pacifico', cursive;
-          font-size: 2em;
-          margin-bottom: 10px;
-        }
-
-        .summer-collection-launch p {
-          font-family: 'Arial', sans-serif;
-          font-size: 1.2em;
-          margin-bottom: 20px;
-        }
-
-        .countdown-timer {
-          font-size: 1.5em;
-          margin-bottom: 20px;
-        }
-
-        .shop-now {
-          padding: 10px 20px;
-          background-color: #ff9800;
-          color: #fff;
-          border: none;
-          cursor: pointer;
-          font-size: 1em;
-        }
-
-        .shop-now:hover {
-          background-color: #e65100;
-        }
-      `}</style>
-    </div>
-  );
-};
+const LimitedEditionDrop = dynamic(() => import('./LimitedEditionDrop'), { ssr: false });
+const SummerCollectionLaunch = dynamic(() => import('./SummerCollectionLaunch'), { ssr: false });
 
 const CampaignsPage = () => (
   <div>
@@ -303,13 +213,19 @@ const CampaignsPage = () => (
       `
     }
     </style>
+    <Suspense fallback={<div>Loading,......</div>}>
     <BackToSchoolSale />
+    </Suspense>
     
     <h1 style={{paddingLeft:500,paddingTop:50}}> PAST CAMPAIGNS</h1>
     <div  className='campaigns'>
 
+    <Suspense fallback={<div>Loading,......</div>}>
     <LimitedEditionDrop />
+    </Suspense>
+    <Suspense fallback={<div>Loading,......</div>}>
     <SummerCollectionLaunch />
+    </Suspense>
     </div>
   </div>
 );
