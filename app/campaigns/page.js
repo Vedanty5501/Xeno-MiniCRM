@@ -52,7 +52,8 @@
 
 
 import React, { useState, useEffect } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { Suspense, useSearchParams } from 'next/navigation';
+// import { useSearchParams } from 'react-router-dom';
 import Head from 'next/head';
 import { useRouter } from 'next/navigation';
 
@@ -99,7 +100,7 @@ const LimitedEditionDrop = () => (
 
 const BackToSchoolSale = () => {
   const [timeLeft, setTimeLeft] = useState(null);
-  const searchParams = useSearchParams();
+  const [searchParams] = useSearchParams();
   const [parsedData, setParsedData] = useState([]);
   
   const router = useRouter();
@@ -112,7 +113,9 @@ const BackToSchoolSale = () => {
     if (data) {
       setParsedData(JSON.parse(decodeURIComponent(data)));
     }
-  }, [searchParams]);
+  }, <Suspense fallback={<div>Loading...</div>}>
+  {searchParams}
+</Suspense>);
 
 
 
