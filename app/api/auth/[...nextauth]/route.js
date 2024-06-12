@@ -11,6 +11,7 @@ const authOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
   ],
+  secret: process.env.NEXTAUTH_SECRET,
   callbacks:{
     async callback(url, req) {
         return `${req.protocol}://${req.get('host')}/api/auth/callback/${url}`;
