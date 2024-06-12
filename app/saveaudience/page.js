@@ -159,7 +159,7 @@ export default function saveAudience() {
       try {
         const query = encodeURIComponent(JSON.stringify(rules[0]));
         const response = await fetch(`/api/customer?query=${query}`);
-        console.log("response is :",response)
+        console.log("response is :",response.json())
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
