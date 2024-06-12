@@ -1,95 +1,62 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+'use client'
+import { redirect, useRouter } from 'next/navigation';
+import Link from 'next/link';
+import { useEffect } from "react";
+import { useSession, signIn, signOut } from 'next-auth/react';
+export default function Home(){
 
-export default function Home() {
+    const { data: session, status } = useSession();
+    console.log(useSession())
+    const router = useRouter();  
+    useEffect(() => {
+        if (status === 'unauthenticated') {
+          console.log("------------google---------------")
+          signIn('google')
+          // redirect('http://localhost:3000/saveaudience')
+        }
+      }, [status, router]);
+    
+      if (status === 'loading') {
+        return <p>Loading...</p>;
+      }
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+    
+   <div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossOrigin="anonymous"/>
+    {/* <Link href='/api/auth/signin'>Sign In With Google</Link> */}
+    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+  <h3 className="navbar-brand" href="#">Sneakers Stop</h3>
+  <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+    <span className="navbar-toggler-icon"></span>
+  </button>
+  <div className="collapse navbar-collapse" id="navbarText">
+    <ul className="navbar-nav mr-auto">
+      <li className="nav-item">
+        <a className="nav-link" href="#" style={{paddingLeft:250}}>Add new Order <span className="sr-only">(current)</span></a>
+      </li>
+      <li className="nav-item">
+        <a className="nav-link" href="#" style={{paddingLeft:50}}>Add new Product</a>
+      </li>
+      <li className="nav-item">
+        <a className="nav-link" href="#" style={{paddingLeft:50}}>Add new Customer</a>
+      </li>
+    </ul>
+    <Link href='/saveaudience' className="navbar-brand" style={{marginRight:60, fontSize:15}}>
+      Send Campaigns
+    </Link>
+  </div>
+</nav>
+{session ? (
+        <><div style={{marginLeft:60,marginTop:20}}>
+          <p>   Welcome <br/><img style={{borderRadius:200,}} src={session.user.image}/><br/>{session.user.name}</p>
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+          <button onClick={() => signOut()}>Sign out</button>
+          </div>
+        </>
+      ) : (
+        <p>Redirecting to sign in...</p>
+      )}
+   </div>
   );
 }

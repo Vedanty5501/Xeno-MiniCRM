@@ -1,0 +1,87 @@
+/* styles.css */
+.audience-criteria {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .add-rule-btn {
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+  
+  .add-rule-btn:hover {
+    background-color: #3e8e41;
+  }
+  
+  .rule-container {
+    margin-top: 20px;
+  }
+  
+  .rule-card {
+    margin-bottom: 20px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .rule-card label {
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  .rule-card select,
+  .rule-card input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+  }
+  
+  .rule-card input[type="radio"] {
+    margin-right: 10px;
+  }
+  
+  .preview-btn {
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .preview-btn:hover {
+    background-color: #3e8e41;
+  }
+  
+  .audience-size {
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .audience-size span {
+    color: #337ab7;
+  }
+
+  /* .save-aud{
+    text-decoration: none;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    height: max-content;
+  }
+
+  .save-aud:hover{
+    background-color: #3e8e41;
+  } */
