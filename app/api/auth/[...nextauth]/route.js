@@ -11,11 +11,11 @@ const authOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
   ],
-  // callbacks:{
-  //   async callback(url, req) {
-  //       return `${req.protocol}://${req.get('host')}/api/auth/callback/${url}`;
-  //     },
-  // }
+  callbacks:{
+    async callback(url, req) {
+        return `${req.protocol}://${req.get('host')}/api/auth/callback/${url}`;
+      },
+  }
 };
 
 const handler = NextAuth(authOptions);
