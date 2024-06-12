@@ -15,9 +15,9 @@ export const GET = async (request) => {
         const url = new URL(request.url);
         const params = JSON.parse(url.searchParams.get('query'));
         await connect();
-        console.log(params)
+        console.log("parameter is ",params)
         const customers = await Customer.find(params);
-        console.log(customers)
+        console.log("db output", customers)
         return new NextResponse(JSON.stringify(customers), { status: 200 });
     } catch (error) {
         return new NextResponse(error);
